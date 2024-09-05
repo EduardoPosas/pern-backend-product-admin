@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createProduct = exports.getProductById = exports.getProducts = void 0;
+exports.updateAvailability = exports.updateProduct = exports.createProduct = exports.getProductById = exports.getProducts = void 0;
 const client_1 = __importDefault(require("../../database/client"));
 const getProducts = async (_req, res) => {
     try {
@@ -77,3 +77,75 @@ const createProduct = async (req, res) => {
     }
 };
 exports.createProduct = createProduct;
+const updateProduct = async (req, res) => {
+    const id = +req.params.id;
+    const { name, price, available } = req.body;
+    try {
+        const existingProduct = await client_1.default.product.findUnique({
+            where: {
+                id
+            }
+        });
+        if (!existingProduct) {
+            return res.status(404).json({
+                error: "Producto no existe en la base de datos"
+            });
+        }
+        // update product data
+        const updatedProduct = await client_1.default.product.update({
+            where: {
+                id
+            },
+            data: {
+                name,
+                price,
+                available
+            }
+        });
+        res.status(200).json({
+            data: updatedProduct
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            error: "Error al actualizar los datos del producto"
+        });
+    }
+};
+exports.updateProduct = updateProduct;
+const updateAvailability = async (req, res) => {
+    const id = +req.params.id;
+    const { available } = req.body;
+    try {
+        const existingProduct = await client_1.default.product.findUnique({
+            where: {
+                id
+            }
+        });
+        if (!existingProduct) {
+            return res.status(404).json({
+                error: "Producto no existe en la base de datos"
+            });
+        }
+        // update product data
+        const updatedProduct = await client_1.default.product.update({
+            where: {
+                id
+            },
+            data: {
+                available
+            }
+        });
+        res.status(200).json({
+            data: updatedProduct
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            error: "Error al actualizar la disponibilidad del producto"
+        });
+    }
+};
+exports.updateAvailability = updateAvailability;

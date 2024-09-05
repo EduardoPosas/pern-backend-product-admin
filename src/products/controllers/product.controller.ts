@@ -22,10 +22,6 @@ export const getProducts = async (_req: Request, res: Response) => {
   }
 }
 
-type GetProductParams = {
-  id: number
-}
-
 export const getProductById = async (req: Request, res: Response) => {
   const id = +req.params.id
   try {
@@ -76,3 +72,77 @@ export const createProduct = async (req: Request, res: Response) => {
     })
   }
 }
+
+export const updateProduct = async (req: Request, res: Response) => {
+  const id = +req.params.id
+  const { name, price, available } = req.body
+
+  try {
+    const existingProduct = await prisma.product.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!existingProduct) {
+      return res.status(404).json({
+        error: "Producto no existe en la base de datos"
+      })
+    }
+
+    // update product data
+    const updatedProduct = await prisma.product.update({
+      where: {
+        id
+      },
+      data: {
+        name,
+        price,
+        available
+      }
+    })
+    res.status(200).json({
+      data: updatedProduct
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      error: "Error al actualizar los datos del producto"
+    })
+  }
+}
+
+export const updateAvailability = async (req: Request, res: Response) => {
+  const id = +req.params.id
+  const { available } = req.body
+
+  try {
+    const existingProduct = await prisma.product.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!existingProduct) {
+      return res.status(404).json({
+        error: "Producto no existe en la base de datos"
+      })
+    }
+
+    // update product data
+    const updatedProduct = await prisma.product.update({
+      where: {
+        id
+      },
+      data: {
+        available
+      }
+    })
+    res.status(200).json({
+      data: updatedProduct
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      error: "Error al actualizar la disponibilidad del producto"
+    })
+  }
+} 

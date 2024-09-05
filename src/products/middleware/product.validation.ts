@@ -1,6 +1,6 @@
 import { checkSchema } from "express-validator"
 
-const validateCreate = checkSchema({
+const validateProductData = checkSchema({
   name: {
     trim: true,
     notEmpty: {
@@ -32,7 +32,16 @@ const validateProductId = checkSchema({
   }
 })
 
+const validateProductAvailability = checkSchema({
+  available: {
+    isBoolean: {
+      errorMessage: "Parámetro no válido"
+    }
+  }
+})
+
 export {
-  validateCreate,
-  validateProductId
+  validateProductData,
+  validateProductId,
+  validateProductAvailability
 }
