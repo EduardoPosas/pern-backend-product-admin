@@ -7,6 +7,7 @@ import products from "./products/routes/product.routes"
 const server = express()
 
 // Middleware
+server.use(express.json())
 
 /** Routing */
 // index
