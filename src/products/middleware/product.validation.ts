@@ -24,6 +24,15 @@ const validateCreate = checkSchema({
   }
 })
 
+const validateProductId = checkSchema({
+  id: {
+    isInt: {
+      errorMessage: "Parámetro no válido"
+    },
+  }
+})
+
 export {
-  validateCreate
+  validateCreate,
+  validateProductId
 }

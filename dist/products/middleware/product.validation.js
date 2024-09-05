@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateCreate = void 0;
+exports.validateProductId = exports.validateCreate = void 0;
 const express_validator_1 = require("express-validator");
 const validateCreate = (0, express_validator_1.checkSchema)({
     name: {
@@ -26,3 +26,11 @@ const validateCreate = (0, express_validator_1.checkSchema)({
     }
 });
 exports.validateCreate = validateCreate;
+const validateProductId = (0, express_validator_1.checkSchema)({
+    id: {
+        isInt: {
+            errorMessage: "Parámetro no válido"
+        },
+    }
+});
+exports.validateProductId = validateProductId;
