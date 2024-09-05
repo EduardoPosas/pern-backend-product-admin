@@ -4,3 +4,4 @@ export declare const getProductById: (req: Request, res: Response) => Promise<Re
 export declare const createProduct: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>;
 export declare const updateProduct: (req: Request, res: Response) => Promise<Response<any, Record<string, any>> | undefined>;
 export declare const updateAvailability: (req: Request, res: Response) => Promise<Response<any, Record<string, any>> | undefined>;
+export declare const deleteProduct: (req: Request, res: Response) => Promise<Response<any, Record<string, any>> | undefined>;

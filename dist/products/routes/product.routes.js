@@ -13,5 +13,5 @@ router.get("/:id", product_validation_1.validateProductId, validation_1.default,
 router.post("/", product_validation_1.validateProductData, validation_1.default, product_controller_1.createProduct);
 router.put("/:id", product_validation_1.validateProductId, product_validation_1.validateProductData, validation_1.default, product_controller_1.updateProduct);
 router.patch("/:id", product_validation_1.validateProductId, product_validation_1.validateProductAvailability, validation_1.default, product_controller_1.updateAvailability);
-router.delete("/", () => { });
+router.delete("/:id", product_validation_1.validateProductId, validation_1.default, product_controller_1.deleteProduct);
 exports.default = router;

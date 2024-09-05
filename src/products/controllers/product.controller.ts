@@ -145,4 +145,33 @@ export const updateAvailability = async (req: Request, res: Response) => {
       error: "Error al actualizar la disponibilidad del producto"
     })
   }
-} 
+}
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  const id = +req.params.id
+  try {
+    const existingProduct = await prisma.product.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!existingProduct) {
+      return res.status(404).json({
+        error: "Producto no existe en la base de datos"
+      })
+    }
+    const deletedProduct = await prisma.product.delete({
+      where: {
+        id
+      }
+    })
+    res.status(204).json({
+      data: "Producto eliminado correctamente"
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      error: "Error al eliminar producto"
+    })
+  }
+}

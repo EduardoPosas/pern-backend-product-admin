@@ -4,7 +4,8 @@ import {
   getProducts,
   getProductById,
   updateProduct,
-  updateAvailability
+  updateAvailability,
+  deleteProduct
 } from "../controllers/product.controller"
 import { validateProductData, validateProductId, validateProductAvailability } from "../middleware/product.validation"
 import validateResult from "../../util/validation"
@@ -28,6 +29,6 @@ router.patch(
   validateResult,
   updateAvailability
 )
-router.delete("/", () => { })
+router.delete("/:id", validateProductId, validateResult, deleteProduct)
 
 export default router
