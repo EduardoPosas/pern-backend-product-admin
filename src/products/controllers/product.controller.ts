@@ -160,7 +160,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
         error: "Producto no existe en la base de datos"
       })
     }
-    const deletedProduct = await prisma.product.delete({
+    await prisma.product.delete({
       where: {
         id
       }

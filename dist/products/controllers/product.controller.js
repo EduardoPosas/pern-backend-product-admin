@@ -162,7 +162,7 @@ const deleteProduct = async (req, res) => {
                 error: "Producto no existe en la base de datos"
             });
         }
-        const deletedProduct = await client_1.default.product.delete({
+        await client_1.default.product.delete({
             where: {
                 id
             }
