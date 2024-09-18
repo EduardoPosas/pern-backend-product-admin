@@ -80,3 +80,81 @@ All files                 |      87 |       75 |     100 |   86.17 |
  src/util                 |     100 |      100 |     100 |     100 | 
   validation.ts           |     100 |      100 |     100 |     100 | 
 --------------------------|---------|----------|---------|---------|-----------------------------------------------
+
+## API - Documentación
+
+Se utilizó `swagger-jsdoc` y `swagger-ui-express` para documentar la api.
+
+```ts
+/**
+ * @swagger
+ * /products/{id}:
+ *  put:
+ *    summary: Update data of an existing product
+ *    description: Return a JSON response with the updated product
+ *    tags:
+ *      - Products
+ *    parameters:
+ *      - name: id
+ *        in: path
+ *        required: true
+ *        description: The id of the product to update
+ *        schema:
+ *          type: integer
+ *          minimum: 1
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              name:
+ *                type: string
+ *                example: Laptop Dell 14 pulgadas 2 in 1 - updated
+ *              price:
+ *                type: number
+ *                example: 1000
+ *              available:
+ *                type: boolean
+ *                example: true
+ *    responses:
+ *      "200":
+ *        description: Return a JSON response with the updated product
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                data:
+ *                  $ref: "#/components/schemas/Product"
+ *      "400":
+ *        description: Bad request - invalid parameter or invalid data
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                errors:
+ *                  type: array
+ *                  items:
+ *                    $ref: "#/components/schemas/Error"
+ *      "404":
+ *        description: Product not found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                error:
+ *                  type: string
+ *                  example: Producto no existe en la base de datos
+ */
+router.put(
+  "/:id",
+  validateProductId,
+  validateProductData,
+  validateResult,
+  updateProduct
+)
+```
