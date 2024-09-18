@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express"
 import "dotenv/config"
+import swaggerUi from "swagger-ui-express"
+import swaggerSpec, { swaggerUiOptions } from "./config/swagger"
 
 /** Routers */
 import products from "./products/routes/product.routes"
@@ -19,5 +21,8 @@ server.get("/", (_req: Request, res: Response) => {
 
 // Products
 server.use("/products", products)
+
+// Documentation
+server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions))
 
 export default server
