@@ -4,11 +4,11 @@ import prisma from "../../database/client"
 export const getProducts = async (_req: Request, res: Response) => {
   try {
     const products = await prisma.product.findMany({
-      select: {
-        id: true,
-        name: true,
-        price: true
-      },
+      // select: {
+      //   id: true,
+      //   name: true,
+      //   price: true
+      // },
       // take: 2
     })
     res.status(200).json({

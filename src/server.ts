@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express"
 import "dotenv/config"
+import cors, { CorsOptions } from "cors"
+import morgan from "morgan"
 import swaggerUi from "swagger-ui-express"
 import swaggerSpec, { swaggerUiOptions } from "./config/swagger"
 
@@ -9,7 +11,13 @@ import products from "./products/routes/product.routes"
 const server = express()
 
 // Middleware
+const corsOptions: CorsOptions = {
+  origin: process.env.FRONTEND_ORIGIN_URL,
+  optionsSuccessStatus: 200
+}
+server.use(cors(corsOptions))
 server.use(express.json())
+server.use(morgan("combined"))
 
 /** Routing */
 // index
