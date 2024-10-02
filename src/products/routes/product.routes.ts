@@ -316,7 +316,7 @@ router.put(
 router.patch(
   "/:id",
   validateProductId,
-  validateProductAvailability,
+  // validateProductAvailability,
   validateResult,
   updateAvailability
 )

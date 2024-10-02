@@ -10,6 +10,9 @@ export const getProducts = async (_req: Request, res: Response) => {
       //   price: true
       // },
       // take: 2
+      orderBy: {
+        id: "asc"
+      }
     })
     res.status(200).json({
       data: products
@@ -113,7 +116,7 @@ export const updateProduct = async (req: Request, res: Response) => {
 
 export const updateAvailability = async (req: Request, res: Response) => {
   const id = +req.params.id
-  const { available } = req.body
+  // const { available } = req.body
 
   try {
     const existingProduct = await prisma.product.findUnique({
@@ -133,7 +136,7 @@ export const updateAvailability = async (req: Request, res: Response) => {
         id
       },
       data: {
-        available
+        available: !existingProduct.available
       }
     })
     res.status(200).json({
